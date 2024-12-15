@@ -9,14 +9,12 @@ import praktikum.Bun;
 import praktikum.Burger;
 import praktikum.Ingredient;
 
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BurgerMockitoTest {
-
-    @Mock
-    private Burger burger;
 
     @Mock
     private Bun bun;
@@ -26,24 +24,30 @@ public class BurgerMockitoTest {
 
     @Test
     public void setBunsTest() {
+        Burger burger = new Burger();
+        assertThat(burger.bun, equalTo(null));
         burger.setBuns(bun);
-        Mockito.verify(burger).setBuns(bun);
+        assertThat(burger.bun, equalTo(bun));
     }
 
     @Test
     public void addIngredientTest(){
+        Burger burger = new Burger();
         burger.addIngredient(ingredient);
-        Mockito.verify(burger).addIngredient(ingredient);
+        assertThat(burger.ingredients.size(), equalTo(1));
+
     }
 
     @Test
     public void removeIngredientTest() {
+        Burger burger = new Burger();
         burger.removeIngredient(0);
         Mockito.verify(burger).removeIngredient(0);
     }
 
     @Test
     public void moveIngredientTest() {
+        Burger burger = new Burger();
         burger.moveIngredient(0, 1);
         Mockito.verify(burger).moveIngredient(0, 1);
     }
