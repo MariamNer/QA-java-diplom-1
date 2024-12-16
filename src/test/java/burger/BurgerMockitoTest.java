@@ -22,6 +22,9 @@ public class BurgerMockitoTest {
     @Mock
     private Ingredient ingredient;
 
+    @Mock
+    private Ingredient ingredient2;
+
     @Test
     public void setBunsTest() {
         Burger burger = new Burger();
@@ -41,15 +44,22 @@ public class BurgerMockitoTest {
     @Test
     public void removeIngredientTest() {
         Burger burger = new Burger();
+        burger.addIngredient(ingredient);
+        assertThat(burger.ingredients.size(), equalTo(1));
         burger.removeIngredient(0);
-        Mockito.verify(burger).removeIngredient(0);
+        assertThat(burger.ingredients.size(), equalTo(0));
     }
 
     @Test
     public void moveIngredientTest() {
         Burger burger = new Burger();
+        System.out.println(burger.ingredients);
+        burger.addIngredient(ingredient);
+        burger.addIngredient(ingredient2);
+        System.out.println(burger.ingredients);
         burger.moveIngredient(0, 1);
-        Mockito.verify(burger).moveIngredient(0, 1);
+        System.out.println(burger.ingredients);
+        assertThat(burger.ingredients.get(0), equalTo(ingredient2));
     }
 
     @Test
@@ -60,6 +70,6 @@ public class BurgerMockitoTest {
         Mockito.when(bun.getPrice()).thenReturn(100F);
         Mockito.when(ingredient.getPrice()).thenReturn(100F);
         float actual = burger.getPrice();
-        assertThat( actual, equalTo(300F));
+        assertThat(actual, equalTo(300F));
     }
 }
